@@ -67,11 +67,12 @@ static MCInstPrinter *createXtensaMCInstPrinter(const Triple &TT,
 
 static MCStreamer *createXtensaMCObjectStreamer(
     const Triple &T, MCContext &Context, std::unique_ptr<MCAsmBackend> &&MAB,
-    raw_pwrite_stream &OS, std::unique_ptr<MCCodeEmitter> &&Emitter,
+    std::unique_ptr<MCObjectWriter> &&OW,
+    std::unique_ptr<MCCodeEmitter> &&Emitter,
     bool RelaxAll) {
 
-  return createELFStreamer(Context, std::move(MAB), OS, std::move(Emitter),
-                           RelaxAll);
+  return createELFStreamer(Context, std::move(MAB), std::move(OW),
+                           std::move(Emitter), RelaxAll);
 }
 
 extern "C" void LLVMInitializeXtensaTargetMC() {

@@ -23,7 +23,7 @@ class MCAsmBackend;
 class MCCodeEmitter;
 class MCContext;
 class MCInstrInfo;
-class MCObjectWriter;
+class MCObjectTargetWriter;
 class MCRegisterInfo;
 class MCSubtargetInfo;
 class StringRef;
@@ -42,9 +42,7 @@ MCAsmBackend *createXtensaMCAsmBackend(const Target &T,
                                        const MCRegisterInfo &MRI,
                                        const MCTargetOptions &Options);
 
-std::unique_ptr<MCObjectWriter> createXtensaObjectWriter(raw_pwrite_stream &OS,
-                                                         uint8_t OSABI,
-                                                         bool IsLittleEndian);
+std::unique_ptr<MCObjectTargetWriter> createXtensaObjectWriter(uint8_t OSABI);
 
 namespace XtensaMC {
 // How many bytes are in the ABI-defined, caller-allocated part of

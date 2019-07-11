@@ -28,8 +28,9 @@ class XtensaMCAsmBackend : public MCAsmBackend {
   bool IsCodeDensity = true;
 
 public:
-  XtensaMCAsmBackend(uint8_t osABI, bool hasFeatureDensity)
-      : OSABI(osABI), IsCodeDensity(hasFeatureDensity) {}
+  XtensaMCAsmBackend(uint8_t osABI, support::endianness Endian,
+                     bool hasFeatureDensity)
+      : MCAsmBackend(Endian), OSABI(osABI), IsCodeDensity(hasFeatureDensity) {}
 
   // Override MCAsmBackend
   unsigned getNumFixupKinds() const override {
@@ -38,18 +39,20 @@ public:
   const MCFixupKindInfo &getFixupKindInfo(MCFixupKind Kind) const override;
   void applyFixup(const MCAssembler &Asm, const MCFixup &Fixup,
                   const MCValue &Target, MutableArrayRef<char> Data,
-                  uint64_t Value, bool IsResolved) const override;
-  bool mayNeedRelaxation(const MCInst &Inst) const override;
+                  uint64_t Value, bool IsResolved,
+                  const MCSubtargetInfo *STI) const override;
+  bool mayNeedRelaxation(const MCInst &Inst,
+                         const MCSubtargetInfo &STI) const override;
   bool fixupNeedsRelaxation(const MCFixup &Fixup, uint64_t Value,
                             const MCRelaxableFragment *Fragment,
                             const MCAsmLayout &Layout) const override;
   void relaxInstruction(const MCInst &Inst, const MCSubtargetInfo &STI,
                         MCInst &Res) const override;
-  bool writeNopData(uint64_t Count, MCObjectWriter *OW) const override;
+  bool writeNopData(raw_ostream &OS, uint64_t Count) const override;
 
-  std::unique_ptr<MCObjectWriter>
-  createObjectWriter(raw_pwrite_stream &OS) const override {
-    return createXtensaObjectWriter(OS, OSABI, IsLittleEndian);
+  std::unique_ptr<MCObjectTargetWriter>
+  createObjectTargetWriter() const override {
+    return createXtensaObjectWriter(OSABI);
   }
 };
 } // end anonymous namespace
@@ -146,7 +149,8 @@ static unsigned getSize(unsigned Kind) {
 void XtensaMCAsmBackend::applyFixup(const MCAssembler &Asm,
                                     const MCFixup &Fixup, const MCValue &Target,
                                     MutableArrayRef<char> Data, uint64_t Value,
-                                    bool IsResolved) const {
+                                    bool IsResolved,
+                                    const MCSubtargetInfo *STI) const {
   MCContext &Ctx = Asm.getContext();
   Value = adjustFixupValue(Fixup, Value, Ctx);
 
@@ -161,7 +165,8 @@ void XtensaMCAsmBackend::applyFixup(const MCAssembler &Asm,
   }
 }
 
-bool XtensaMCAsmBackend::mayNeedRelaxation(const MCInst &Inst) const {
+bool XtensaMCAsmBackend::mayNeedRelaxation(const MCInst &Inst,
+                                           const MCSubtargetInfo &STI) const {
   return false;
 }
 
@@ -175,8 +180,7 @@ void XtensaMCAsmBackend::relaxInstruction(const MCInst &Inst,
                                           const MCSubtargetInfo &STI,
                                           MCInst &Res) const {}
 
-bool XtensaMCAsmBackend::writeNopData(uint64_t Count,
-                                      MCObjectWriter *OW) const {
+bool XtensaMCAsmBackend::writeNopData(raw_ostream &OS, uint64_t Count) const {
   uint64_t NumNops16b = 0;
 
   if (IsCodeDensity && (Count > 1)) {
@@ -188,11 +192,11 @@ bool XtensaMCAsmBackend::writeNopData(uint64_t Count,
     //Currently just little-endian machine supported,
     //but probably big-endian will be also implemented in future
     if (IsLittleEndian) {
-      OW->write8(0x3d);
-      OW->write8(0xf0);
+      OS << '\x3d';
+      OS << '\xf0';
     } else {
-      OW->write8(0xf0);
-      OW->write8(0x3d);
+      OS << '\xf0';
+      OS << '\x3d';
     }
     Count -= 2;
   }
@@ -203,13 +207,13 @@ bool XtensaMCAsmBackend::writeNopData(uint64_t Count,
     //Currently just little-endian machine supported,
     //but probably big-endian will be also implemented in future
     if (IsLittleEndian) {
-      OW->write8(0xf0);
-      OW->write8(0x20);
-      OW->write8(0x00);
+      OS << '\xf0';
+      OS << '\x20';
+      OS << '\x00';
     } else {
-      OW->write8(0x00);
-      OW->write8(0x20);
-      OW->write8(0xf0);
+      OS << '\x00';
+      OS << '\x20';
+      OS << '\xf0';
     }
     Count -= 3;
   }
@@ -219,10 +223,11 @@ bool XtensaMCAsmBackend::writeNopData(uint64_t Count,
   default:
     break;
   case 1:
-    OW->write8(0);
+    OS << '\x00';
     break;
   case 2:
-    OW->write16(0);
+    OS << '\x00';
+    OS << '\x00';
     break;
   }
 
@@ -236,5 +241,7 @@ MCAsmBackend *llvm::createXtensaMCAsmBackend(const Target &T,
   uint8_t OSABI =
       MCELFObjectTargetWriter::getOSABI(STI.getTargetTriple().getOS());
   bool hasFeatureDensity = STI.getFeatureBits()[Xtensa::FeatureDensity];
-  return new XtensaMCAsmBackend(OSABI, hasFeatureDensity);
+  return new XtensaMCAsmBackend(OSABI,
+                                support::endianness::little,
+                                hasFeatureDensity);
 }
