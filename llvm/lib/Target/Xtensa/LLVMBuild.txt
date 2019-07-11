@@ -1,0 +1,17 @@
+[common]
+subdirectories = AsmParser InstPrinter MCTargetDesc TargetInfo
+
+[component_0]
+type = TargetGroup
+name = Xtensa
+parent = Target
+has_asmparser = 1
+has_asmprinter = 1
+has_jit = 1
+
+[component_1]
+type = Library
+name = XtensaCodeGen
+parent = Xtensa
+required_libraries = AsmPrinter CodeGen Core MC SelectionDAG XtensaDesc XtensaInfo Support Target
+add_to_library_groups = Xtensa

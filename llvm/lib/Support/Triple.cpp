@@ -53,6 +53,7 @@ StringRef Triple::getArchTypeName(ArchType Kind) {
   case x86:            return "i386";
   case x86_64:         return "x86_64";
   case xcore:          return "xcore";
+  case xtensa:         return "xtensa";
   case nvptx:          return "nvptx";
   case nvptx64:        return "nvptx64";
   case le32:           return "le32";
@@ -119,6 +120,8 @@ StringRef Triple::getArchTypePrefix(ArchType Kind) {
   case x86_64:      return "x86";
 
   case xcore:       return "xcore";
+
+  case xtensa:      return "xtensa";
 
   // NVPTX intrinsics are namespaced under nvvm.
   case nvptx:       return "nvvm";
@@ -291,6 +294,7 @@ Triple::ArchType Triple::getArchTypeForLLVMName(StringRef Name) {
     .Case("x86", x86)
     .Case("x86-64", x86_64)
     .Case("xcore", xcore)
+    .Case("xtensa", xtensa)
     .Case("nvptx", nvptx)
     .Case("nvptx64", nvptx64)
     .Case("le32", le32)
@@ -417,6 +421,7 @@ static Triple::ArchType parseArch(StringRef ArchName) {
     .Case("tce", Triple::tce)
     .Case("tcele", Triple::tcele)
     .Case("xcore", Triple::xcore)
+    .Case("xtensa", Triple::xtensa)
     .Case("nvptx", Triple::nvptx)
     .Case("nvptx64", Triple::nvptx64)
     .Case("le32", Triple::le32)
@@ -681,6 +686,7 @@ static Triple::ObjectFormatType getDefaultFormat(const Triple &T) {
   case Triple::tcele:
   case Triple::thumbeb:
   case Triple::xcore:
+  case Triple::xtensa:
     return Triple::ELF;
 
   case Triple::ppc:
@@ -1231,6 +1237,7 @@ static unsigned getArchPointerBitWidth(llvm::Triple::ArchType Arch) {
   case llvm::Triple::thumbeb:
   case llvm::Triple::x86:
   case llvm::Triple::xcore:
+  case llvm::Triple::xtensa:
   case llvm::Triple::amdil:
   case llvm::Triple::hsail:
   case llvm::Triple::spir:
@@ -1315,6 +1322,7 @@ Triple Triple::get32BitArchVariant() const {
   case Triple::thumbeb:
   case Triple::x86:
   case Triple::xcore:
+  case Triple::xtensa:
   case Triple::lanai:
   case Triple::shave:
   case Triple::wasm32:
@@ -1355,6 +1363,7 @@ Triple Triple::get64BitArchVariant() const {
   case Triple::tce:
   case Triple::tcele:
   case Triple::xcore:
+  case Triple::xtensa:
   case Triple::sparcel:
   case Triple::shave:
     T.setArch(UnknownArch);
@@ -1435,6 +1444,7 @@ Triple Triple::getBigEndianArchVariant() const {
   case Triple::x86:
   case Triple::x86_64:
   case Triple::xcore:
+  case Triple::xtensa:
   case Triple::renderscript32:
   case Triple::renderscript64:
 
@@ -1524,6 +1534,7 @@ bool Triple::isLittleEndian() const {
   case Triple::x86:
   case Triple::x86_64:
   case Triple::xcore:
+  case Triple::xtensa:
   case Triple::tcele:
   case Triple::renderscript32:
   case Triple::renderscript64:
