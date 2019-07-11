@@ -26,7 +26,22 @@ add_llvm_target(XtensaCodeGen
   XtensaTargetObjectFile.cpp
   XtensaSizeReductionPass.cpp
   XtensaZOLPass.cpp
-  )
+
+  # TODO: this shouldn't be necessary. X86 doesn't do it
+  LINK_COMPONENTS
+  Analysis
+  AsmPrinter
+  CodeGen
+  Core
+  MC
+  SelectionDAG
+  Support
+  Target
+  TransformUtils
+  XtensaAsmPrinter
+  XtensaDesc
+  XtensaInfo
+)
 
 add_dependencies(LLVMXtensaCodeGen intrinsics_gen)
 
