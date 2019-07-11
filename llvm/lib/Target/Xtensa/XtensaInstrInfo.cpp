@@ -229,7 +229,7 @@ unsigned XtensaInstrInfo::removeBranch(MachineBasicBlock &MBB,
 unsigned XtensaInstrInfo::insertBranch(
     MachineBasicBlock &MBB, MachineBasicBlock *TBB, MachineBasicBlock *FBB,
     ArrayRef<MachineOperand> Cond, const DebugLoc &DL, int *BytesAdded) const {
-  unsigned Count = 0; 
+  unsigned Count = 0;
   if (FBB) {
     // Need to build two branches then
     // one to branch to TBB on Cond
@@ -493,7 +493,7 @@ XtensaInstrInfo::getBranchDestBlock(const MachineInstr &MI) const {
   case Xtensa::BLE:
   case Xtensa::BLEU:
     return MI.getOperand(2).getMBB();
- 
+
   case Xtensa::BEQI:
   case Xtensa::BNEI:
   case Xtensa::BLTI:
@@ -558,7 +558,7 @@ bool XtensaInstrInfo::isBranchOffsetInRange(unsigned BranchOp,
   default:
     llvm_unreachable("Unknown branch opcode");
   }
-} 
+}
 
 unsigned XtensaInstrInfo::BranchType(unsigned OpCode) const {
   switch (OpCode) {

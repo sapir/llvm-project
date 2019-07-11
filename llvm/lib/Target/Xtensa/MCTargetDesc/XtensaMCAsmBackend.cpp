@@ -185,7 +185,7 @@ bool XtensaMCAsmBackend::writeNopData(uint64_t Count,
 
   // Fill data with 16b NOP instructions first if possible
   for (uint64_t i = 0; i != NumNops16b; ++i) {
-    //Currently just little-endian machine supported, 
+    //Currently just little-endian machine supported,
     //but probably big-endian will be also implemented in future
     if (IsLittleEndian) {
       OW->write8(0x3d);
@@ -200,7 +200,7 @@ bool XtensaMCAsmBackend::writeNopData(uint64_t Count,
   uint64_t NumNops24b = Count / 3;
 
   for (uint64_t i = 0; i != NumNops24b; ++i) {
-    //Currently just little-endian machine supported, 
+    //Currently just little-endian machine supported,
     //but probably big-endian will be also implemented in future
     if (IsLittleEndian) {
       OW->write8(0xf0);

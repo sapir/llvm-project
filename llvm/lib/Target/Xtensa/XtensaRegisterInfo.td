@@ -71,14 +71,14 @@ class SRReg<bits<8> num, string n> : XtensaReg<n> {
 def sar : SRReg<3, "sar">;
 
 // Register Classes
-//def AR : RegisterClass<"Xtensa", [i32], 32, (add 
+//def AR : RegisterClass<"Xtensa", [i32], 32, (add
 //  a0, sp, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15)>;
 
 // Expected data value for S32C1I operation
 def SCOMPARE1 : SRReg<12, "SCOMPARE1">;
 
 // Register class with allocation order
-def AR : RegisterClass<"Xtensa", [i32], 32, (add 
+def AR : RegisterClass<"Xtensa", [i32], 32, (add
   a8, a9, a10, a11, a12, a13, a14, a15,
   a7, a6, a5, a4, a3, a2, a0, sp)>;
 
@@ -112,7 +112,7 @@ def f14 : FPReg<14, "f14">, DwarfRegNum<[33]>;
 def f15 : FPReg<15, "f15">, DwarfRegNum<[34]>;
 
 // Floating-Point register class with allocation order
-def FPR : RegisterClass<"Xtensa", [f32], 32, (add 
+def FPR : RegisterClass<"Xtensa", [f32], 32, (add
   f8, f9, f10, f11, f12, f13, f14, f15,
   f7, f6, f5, f4, f3, f2, f1, f0)>;
 

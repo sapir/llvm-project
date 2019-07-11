@@ -163,7 +163,7 @@ class XtensaDAGToDAGISel : public SelectionDAGISel {
     if ((Addr.getOpcode() == ISD::TargetExternalSymbol ||
        Addr.getOpcode() == ISD::TargetGlobalAddress))
       return false;
- 
+
     // Addresses of the form FI+const or FI|const
     if (CurDAG->isBaseWithConstantOffset(Addr)) {
       ConstantSDNode *CN = dyn_cast<ConstantSDNode>(Addr.getOperand(1));

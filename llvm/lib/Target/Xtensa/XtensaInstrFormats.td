@@ -27,23 +27,23 @@ class XtensaInst<int size, dag outs, dag ins, string asmstr, list<dag> pattern,
 
 // Base class for Xtensa 24 bit Format
 class XtensaInst24<dag outs, dag ins, string asmstr, list<dag> pattern,
-                      InstrItinClass itin = NoItinerary>: 
-                XtensaInst<3, outs, ins, asmstr, pattern, itin>  
+                      InstrItinClass itin = NoItinerary>:
+                XtensaInst<3, outs, ins, asmstr, pattern, itin>
 {
   field bits<24> Inst;
 }
 
 // Base class for Xtensa 16 bit Format
 class XtensaInst16<dag outs, dag ins, string asmstr, list<dag> pattern,
-                      InstrItinClass itin = NoItinerary>: 
-                XtensaInst<2, outs, ins, asmstr, pattern, itin>  
+                      InstrItinClass itin = NoItinerary>:
+                XtensaInst<2, outs, ins, asmstr, pattern, itin>
 {
   field bits<16> Inst;
   let Predicates = [HasDensity];
 }
 
-class RRR_Inst<bits<4> op0, bits<4> op1, bits<4> op2, dag outs, dag ins, 
-               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>: 
+class RRR_Inst<bits<4> op0, bits<4> op1, bits<4> op2, dag outs, dag ins,
+               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>:
                  XtensaInst24<outs, ins, asmstr, pattern, itin>
 {
   bits<4> r;
@@ -59,8 +59,8 @@ class RRR_Inst<bits<4> op0, bits<4> op1, bits<4> op2, dag outs, dag ins,
   let Inst{3-0} = op0;
 }
 
-class RRI4_Inst<bits<4> op0, bits<4> op1, dag outs, dag ins, 
-               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>: 
+class RRI4_Inst<bits<4> op0, bits<4> op1, dag outs, dag ins,
+               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>:
                  XtensaInst24<outs, ins, asmstr, pattern, itin>
 {
   bits<4> r;
@@ -76,8 +76,8 @@ class RRI4_Inst<bits<4> op0, bits<4> op1, dag outs, dag ins,
   let Inst{3-0} = op0;
 }
 
-class RRI8_Inst<bits<4> op0, dag outs, dag ins, 
-               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>: 
+class RRI8_Inst<bits<4> op0, dag outs, dag ins,
+               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>:
                  XtensaInst24<outs, ins, asmstr, pattern, itin>
 {
   bits<4> r;
@@ -92,8 +92,8 @@ class RRI8_Inst<bits<4> op0, dag outs, dag ins,
   let Inst{3-0} = op0;
 }
 
-class RI16_Inst<bits<4> op0, dag outs, dag ins, 
-               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>: 
+class RI16_Inst<bits<4> op0, dag outs, dag ins,
+               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>:
                  XtensaInst24<outs, ins, asmstr, pattern, itin>
 {
   bits<4> t;
@@ -104,8 +104,8 @@ class RI16_Inst<bits<4> op0, dag outs, dag ins,
   let Inst{3-0} = op0;
 }
 
-class RSR_Inst<bits<4> op0, bits<4> op1, bits<4> op2, dag outs, dag ins, 
-               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>: 
+class RSR_Inst<bits<4> op0, bits<4> op1, bits<4> op2, dag outs, dag ins,
+               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>:
                  XtensaInst24<outs, ins, asmstr, pattern, itin>
 {
   bits<8> sr;
@@ -118,8 +118,8 @@ class RSR_Inst<bits<4> op0, bits<4> op1, bits<4> op2, dag outs, dag ins,
   let Inst{3-0} = op0;
 }
 
-class CALL_Inst<bits<4> op0, dag outs, dag ins, 
-               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>: 
+class CALL_Inst<bits<4> op0, dag outs, dag ins,
+               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>:
                  XtensaInst24<outs, ins, asmstr, pattern, itin>
 {
   bits<18> offset;
@@ -130,8 +130,8 @@ class CALL_Inst<bits<4> op0, dag outs, dag ins,
   let Inst{3-0} = op0;
 }
 
-class CALLX_Inst<bits<4> op0, bits<4> op1, bits<4> op2, dag outs, dag ins, 
-               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>: 
+class CALLX_Inst<bits<4> op0, bits<4> op1, bits<4> op2, dag outs, dag ins,
+               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>:
                  XtensaInst24<outs, ins, asmstr, pattern, itin>
 {
   bits<4> r;
@@ -148,8 +148,8 @@ class CALLX_Inst<bits<4> op0, bits<4> op1, bits<4> op2, dag outs, dag ins,
   let Inst{3-0} = op0;
 }
 
-class BRI8_Inst<bits<4> op0, dag outs, dag ins, 
-               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>: 
+class BRI8_Inst<bits<4> op0, dag outs, dag ins,
+               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>:
                  XtensaInst24<outs, ins, asmstr, pattern, itin>
 {
   bits<8> imm8;
@@ -166,8 +166,8 @@ class BRI8_Inst<bits<4> op0, dag outs, dag ins,
   let Inst{3-0} = op0;
 }
 
-class BRI12_Inst<bits<4> op0, bits<2> n, bits<2> m, dag outs, dag ins, 
-               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>: 
+class BRI12_Inst<bits<4> op0, bits<2> n, bits<2> m, dag outs, dag ins,
+               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>:
                  XtensaInst24<outs, ins, asmstr, pattern, itin>
 {
   bits<12> imm12;
@@ -181,8 +181,8 @@ class BRI12_Inst<bits<4> op0, bits<2> n, bits<2> m, dag outs, dag ins,
   let Inst{3-0} = op0;
 }
 
-class RRRN_Inst<bits<4> op0, dag outs, dag ins, 
-               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>: 
+class RRRN_Inst<bits<4> op0, dag outs, dag ins,
+               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>:
                  XtensaInst16<outs, ins, asmstr, pattern, itin>
 {
   bits<4> r;
@@ -195,8 +195,8 @@ class RRRN_Inst<bits<4> op0, dag outs, dag ins,
   let Inst{3-0} = op0;
 }
 
-class RI7_Inst<bits<4> op0, bits<1> i, dag outs, dag ins, 
-               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>: 
+class RI7_Inst<bits<4> op0, bits<1> i, dag outs, dag ins,
+               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>:
                  XtensaInst16<outs, ins, asmstr, pattern, itin>
 {
   bits<7> imm7;
@@ -209,8 +209,8 @@ class RI7_Inst<bits<4> op0, bits<1> i, dag outs, dag ins,
   let Inst{3-0} = op0;
 }
 
-class RI6_Inst<bits<4> op0, bits<1> i,  bits<1> z, dag outs, dag ins, 
-               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>: 
+class RI6_Inst<bits<4> op0, bits<1> i,  bits<1> z, dag outs, dag ins,
+               string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>:
                  XtensaInst16<outs, ins, asmstr, pattern, itin>
 {
   bits<6> imm6;
@@ -226,7 +226,7 @@ class RI6_Inst<bits<4> op0, bits<1> i,  bits<1> z, dag outs, dag ins,
 
 // Pseudo instructions
 class Pseudo<dag outs, dag ins, string asmstr, list<dag> pattern>
-  :  XtensaInst<2, outs, ins, asmstr, pattern> 
+  :  XtensaInst<2, outs, ins, asmstr, pattern>
 {
   field bits<16> Inst;
 

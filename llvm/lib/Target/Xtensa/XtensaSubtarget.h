@@ -108,27 +108,27 @@ public:
 
   bool hasSingleFloat() const { return HasSingleFloat; };
 
-  bool hasWindowed() const { return HasWindowed; }; 
+  bool hasWindowed() const { return HasWindowed; };
 
-  bool hasLoop() const { return HasLoop; }; 
+  bool hasLoop() const { return HasLoop; };
 
-  bool hasMAC16() const { return HasMAC16; }; 
+  bool hasMAC16() const { return HasMAC16; };
 
-  bool hasBoolean() const { return HasBoolean; }; 
+  bool hasBoolean() const { return HasBoolean; };
 
-  bool hasSEXT() const { return HasSEXT; }; 
+  bool hasSEXT() const { return HasSEXT; };
 
-  bool hasNSA() const { return HasNSA; }; 
+  bool hasNSA() const { return HasNSA; };
 
-  bool hasMul32() const { return HasMul32; }; 
+  bool hasMul32() const { return HasMul32; };
 
-  bool hasMul32High() const { return HasMul32High; }; 
+  bool hasMul32High() const { return HasMul32High; };
 
-  bool hasDiv32() const { return HasDiv32; }; 
+  bool hasDiv32() const { return HasDiv32; };
 
-  bool hasS32C1I() const { return HasS32C1I; }; 
-  
-  bool hasTHREADPTR() const { return HasTHREADPTR; }; 
+  bool hasS32C1I() const { return HasS32C1I; };
+
+  bool hasTHREADPTR() const { return HasTHREADPTR; };
 
   bool useSoftFloat() const { return UseSoftFloat; }
 

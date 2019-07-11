@@ -43,7 +43,7 @@ public:
   // Get and set the frame index of the first stack vararg.
   unsigned getVarArgsFrameIndex() const { return VarArgsFrameIndex; }
   void setVarArgsFrameIndex(unsigned FI) { VarArgsFrameIndex = FI; }
-  
+
   //TODO: large frame size definition should be specified more precisely
   bool isLargeFrame() {  return (MF.getFrameInfo().estimateStackSize(MF) > 512) ? true : false;}
 };

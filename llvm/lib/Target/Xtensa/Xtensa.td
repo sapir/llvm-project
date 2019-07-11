@@ -14,7 +14,7 @@
 include "llvm/Target/Target.td"
 
 //===----------------------------------------------------------------------===//
-// Subtarget Features. 
+// Subtarget Features.
 //===----------------------------------------------------------------------===//
 def FeatureDensity : SubtargetFeature<"density", "HasDensity", "true",
                     "Enable Density instructions">;
@@ -55,7 +55,7 @@ def FeatureNSA : SubtargetFeature<"nsa", "HasNSA", "true",
                     "Enable Xtensa NSA option">;
 def HasNSA : Predicate<"Subtarget->hasNSA()">,
                            AssemblerPredicate<"FeatureNSA">;
-						   
+						
 def FeatureMul32 : SubtargetFeature<"mul32", "HasMul32", "true",
                     "Enable Xtensa Mul32 option">;
 def HasMul32 : Predicate<"Subtarget->hasMul32()">,
@@ -65,17 +65,17 @@ def FeatureMul32High : SubtargetFeature<"mul32high", "HasMul32High", "true",
                     "Enable Xtensa Mul32High option">;
 def HasMul32High : Predicate<"Subtarget->hasMul32High()">,
                            AssemblerPredicate<"FeatureMul32High">;
-						   
+						
 def FeatureDiv32 : SubtargetFeature<"div32", "HasDiv32", "true",
                     "Enable Xtensa Div32 option">;
 def HasDiv32 : Predicate<"Subtarget->hasDiv32()">,
                            AssemblerPredicate<"FeatureDiv32">;
-						   
+						
 def FeatureS32C1I : SubtargetFeature<"s32c1i", "HasS32C1I", "true",
                     "Enable Xtensa S32C1I option">;
 def HasS32C1I : Predicate<"Subtarget->hasS32C1I()">,
                            AssemblerPredicate<"FeatureS32C1I">;
-						   						   
+						   						
 def FeatureTHREADPTR : SubtargetFeature<"threadptr", "HasTHREADPTR", "true",
                     "Enable Xtensa THREADPTR option">;
 def HasTHREADPTR : Predicate<"Subtarget->hasTHREADPTR()">,
@@ -87,7 +87,7 @@ class Proc<string Name, list<SubtargetFeature> Features>
  : Processor<Name, NoItineraries, Features>;
 
 def : Proc<"generic", []>;
-def : Proc<"esp32", [FeatureDensity, FeatureSingleFloat, FeatureLoop, FeatureMAC16, FeatureWindowed, FeatureBoolean, 
+def : Proc<"esp32", [FeatureDensity, FeatureSingleFloat, FeatureLoop, FeatureMAC16, FeatureWindowed, FeatureBoolean,
                      FeatureSEXT, FeatureNSA, FeatureMul32, FeatureMul32High, FeatureS32C1I, FeatureTHREADPTR, FeatureDiv32]>;
 def : Proc<"esp8266", [FeatureDensity, FeatureNSA, FeatureMul32]>;
 
@@ -96,7 +96,7 @@ def : Proc<"esp8266", [FeatureDensity, FeatureNSA, FeatureMul32]>;
 //===----------------------------------------------------------------------===//
 
 include "XtensaRegisterInfo.td"
- 
+
 //===----------------------------------------------------------------------===//
 // Calling Convention Description
 //===----------------------------------------------------------------------===//
@@ -111,7 +111,7 @@ include "XtensaInstrInfo.td"
 
 def XtensaInstrInfo : InstrInfo;
 
-def XtensaInstPrinter : AsmWriter 
+def XtensaInstPrinter : AsmWriter
 {
   string AsmWriterClassName  = "InstPrinter";
   bit isMCAsmWriter = 1;
@@ -121,7 +121,7 @@ def XtensaInstPrinter : AsmWriter
 // Target Declaration
 //===----------------------------------------------------------------------===//
 
-def Xtensa : Target 
+def Xtensa : Target
 {
   let InstructionSet = XtensaInstrInfo;
   let AssemblyWriters = [XtensaInstPrinter];

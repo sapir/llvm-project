@@ -47,13 +47,13 @@ def RetCCW_Xtensa: CallingConv<[
   CCIfType<[f32], CCBitConvertToType<i32>>,
 
   // The first 6 integer arguments are passed in a2-a7
-  // Large arguments (8-bytes) are always passed in an even/odd register pair 
+  // Large arguments (8-bytes) are always passed in an even/odd register pair
   // even if that means to omit a register for alignment.
   CCIfType<[i32], CCIfAlign<"8", CCAssignToRegWithShadow<[a2, a4, a6], [a3, a5, a7]>>>,
   CCIfType<[i32], CCIf<"ArgFlags.getOrigAlign() != 8",
                        CCAssignToReg<[a2, a3, a4, a5, a6, a7]>>>,
 
-  
+
 //  CCIfType<[i32], CCAssignToReg<[a2, a3, a4, a5, a6, a7]>>,
 
   // Other arguments are passed in 8-byte-aligned 8-byte stack slots.
@@ -68,7 +68,7 @@ def CC_Xtensa_VAR : CallingConv<[
   CCIfType<[i1, i8,i16], CCPromoteToType<i32>>,
 
   // The first 6 integer arguments are passed in a2-a7
-  // Large arguments (8-bytes) are always passed in an even/odd register pair 
+  // Large arguments (8-bytes) are always passed in an even/odd register pair
   // even if that means to omit a register for alignment.
   CCIfType<[i32], CCIfAlign<"8", CCAssignToRegWithShadow<[a2, a4, a6], [a3, a5, a7]>>>,
   CCIfType<[i32], CCIf<"ArgFlags.getOrigAlign() != 8",

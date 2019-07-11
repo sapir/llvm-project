@@ -147,7 +147,7 @@ public:
            ((dyn_cast<MCConstantExpr>(getImm())->getValue() & 0xFF) == 0);
   }
 
-  bool isimmn() const { 
+  bool isimmn() const {
     if (Kind != Immediate)
       return false;
     if (auto *CE = dyn_cast<MCConstantExpr>(getImm())) {
@@ -155,7 +155,7 @@ public:
       if (!Value)
         return false;
     }
-    return isImm(0, 15); 
+    return isImm(0, 15);
   }
 
   bool isoffset4m32() const { return isImm(0, 15); }
@@ -173,7 +173,7 @@ public:
   bool isshimm16_31() const { return isImm(16, 31); }
 
   bool isshimm1_16() const { return isImm(1, 16); }
-  
+
   bool isshimm17_31() const { return isImm(17, 31); }
 
   bool isb4const() const {

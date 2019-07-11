@@ -16,7 +16,7 @@ def SDT_XtensaCallSeqEnd          : SDCallSeqEnd<[SDTCisVT<0, i32>,
 def SDT_XtensaCall               : SDTypeProfile<0, -1, [SDTCisPtrTy<0>]>;
 def SDT_XtensaSelectCC           : SDTypeProfile<1, 5,
                                             [SDTCisSameAs<0, 1>,
-                                             SDTCisSameAs<2, 3>, 
+                                             SDTCisSameAs<2, 3>,
                                              SDTCisVT<5, i32>]>;
 def SDT_XtensaWrapPtr            : SDTypeProfile<1, 1,
                                             [SDTCisSameAs<0, 1>,
@@ -67,7 +67,7 @@ def Xtensa_select : SDNode<"XtensaISD::SELECT", SDTSelect>;
 def Xtensa_select_cc: SDNode<"XtensaISD::SELECT_CC", SDT_XtensaSelectCC,
     		                 [SDNPInGlue]>;
 
-def Xtensa_fence: SDNode<"XtensaISD::FENCE", SDT_XtensaFence, 
+def Xtensa_fence: SDNode<"XtensaISD::FENCE", SDT_XtensaFence,
                  [SDNPHasChain, SDNPSideEffect]>;
 
 def Xtensa_cmpoeq     : SDNode<"XtensaISD::CMPOEQ", SDT_XtensaCmp, [SDNPOutGlue]>;
