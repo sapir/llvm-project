@@ -69,7 +69,7 @@ bool XtensaSizeReduce::ReduceMI(const MachineBasicBlock::instr_iterator &MII) {
       MIB.add(Op2);
       // Transfer MI flags.
       MIB.setMIFlags(MI->getFlags());
-      DEBUG(dbgs() << "       to 16-bit: " << *MIB);
+      LLVM_DEBUG(dbgs() << "       to 16-bit: " << *MIB);
       NumReduced++;
       MBB.erase_instr(MI);
       return true;
@@ -92,7 +92,7 @@ bool XtensaSizeReduce::ReduceMI(const MachineBasicBlock::instr_iterator &MII) {
       MIB.add(Op2);
       // Transfer MI flags.
       MIB.setMIFlags(MI->getFlags());
-      DEBUG(dbgs() << "       to 16-bit: " << *MIB);
+      LLVM_DEBUG(dbgs() << "       to 16-bit: " << *MIB);
       NumReduced++;
       MBB.erase_instr(MI);
       return true;

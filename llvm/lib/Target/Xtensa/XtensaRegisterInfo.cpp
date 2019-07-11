@@ -118,8 +118,8 @@ void XtensaRegisterInfo::eliminateFI(MachineBasicBlock::iterator II,
   else
     Offset += MI.getOperand(OpNo + 1).getImm();
 
-  DEBUG(errs() << "Offset     : " << Offset << "\n"
-               << "<--------->\n");
+  LLVM_DEBUG(errs() << "Offset     : " << Offset << "\n"
+                    << "<--------->\n");
 
   bool Valid = false;
   switch (MI.getOpcode()) {
@@ -176,17 +176,16 @@ void XtensaRegisterInfo::eliminateFrameIndex(MachineBasicBlock::iterator II,
   MachineInstr &MI = *II;
   MachineFunction &MF = *MI.getParent()->getParent();
 
-  DEBUG(errs() << "\nFunction : " << MF.getName() << "\n"; errs()
-                                                           << "<--------->\n"
-                                                           << MI);
+  LLVM_DEBUG(errs() << "\nFunction : " << MF.getName() << "\n");
+  LLVM_DEBUG(errs() << "<--------->\n" << MI);
 
   int FrameIndex = MI.getOperand(FIOperandNum).getIndex();
   uint64_t stackSize = MF.getFrameInfo().getStackSize();
   int64_t spOffset = MF.getFrameInfo().getObjectOffset(FrameIndex);
 
-  DEBUG(errs() << "FrameIndex : " << FrameIndex << "\n"
-               << "spOffset   : " << spOffset << "\n"
-               << "stackSize  : " << stackSize << "\n");
+  LLVM_DEBUG(errs() << "FrameIndex : " << FrameIndex << "\n"
+                    << "spOffset   : " << spOffset << "\n"
+                    << "stackSize  : " << stackSize << "\n");
 
   eliminateFI(MI, FIOperandNum, FrameIndex, stackSize, spOffset);
 }

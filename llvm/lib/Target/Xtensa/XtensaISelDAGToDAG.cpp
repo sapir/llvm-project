@@ -274,11 +274,11 @@ FunctionPass *llvm::createXtensaISelDag(XtensaTargetMachine &TM,
 void XtensaDAGToDAGISel::Select(SDNode *Node) {
   SDLoc DL(Node);
   // Dump information about the Node being selected
-  DEBUG(errs() << "Selecting: "; Node->dump(CurDAG); errs() << "\n");
+  LLVM_DEBUG(errs() << "Selecting: "; Node->dump(CurDAG); errs() << "\n");
 
   // If we have a custom node, we already have selected!
   if (Node->isMachineOpcode()) {
-    DEBUG(errs() << "== "; Node->dump(CurDAG); errs() << "\n");
+    LLVM_DEBUG(errs() << "== "; Node->dump(CurDAG); errs() << "\n");
     return;
   }
 
