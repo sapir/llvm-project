@@ -170,6 +170,16 @@ namespace clang {
     };
   }
 
+  /// Xtensa builtins
+  namespace Xtensa {
+    enum {
+        LastTIBuiltin = clang::Builtin::FirstTSBuiltin-1,
+#define BUILTIN(ID, TYPE, ATTRS) BI##ID,
+#include "clang/Basic/BuiltinsXtensa.def"
+        LastTSBuiltin
+    };
+  }
+
   /// Le64 builtins
   namespace Le64 {
   enum {

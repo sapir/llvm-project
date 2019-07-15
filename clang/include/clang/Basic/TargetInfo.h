@@ -215,7 +215,10 @@ public:
     //     void *__overflow_arg_area;
     //     void *__reg_save_area;
     //   } va_list[1];
-    SystemZBuiltinVaList
+    SystemZBuiltinVaList,
+
+    // Tensilica Xtensa
+    XtensaABIBuiltinVaList
   };
 
 protected:
