@@ -8831,7 +8831,7 @@ Address XtensaABIInfo::EmitVAArg(CodeGenFunction &CGF, Address VAListAddr,
   CharUnits SlotSize = CharUnits::fromQuantity(32 / 8);
   // Empty records are ignored for parameter passing purposes.
   if (isEmptyRecord(getContext(), Ty, true)) {
-     // We try to return some dummy value which will be 
+     // We try to return some dummy value which will be
      // removed by backend
 
      auto TypeInfo = getContext().getTypeInfoInChars(Ty);
@@ -8846,7 +8846,7 @@ Address XtensaABIInfo::EmitVAArg(CodeGenFunction &CGF, Address VAListAddr,
   // Arguments bigger than MAX_STRUCT_DIRECT_SIZE indirectly.
   CharUnits DirectSize = CharUnits::fromQuantity(MAX_ARG_DIRECT_SIZE / 8);
   bool IsIndirect = SizeAndAlign.first > DirectSize;
- 
+
   if (IsIndirect) {
     auto TyInfo = CGF.getContext().getTypeInfoInChars(Ty);
     CharUnits TyAlignForABI = TyInfo.second;
@@ -8865,7 +8865,7 @@ Address XtensaABIInfo::EmitVAArg(CodeGenFunction &CGF, Address VAListAddr,
 }
 
 ABIArgInfo XtensaABIInfo::extendType(QualType Ty) const {
-  return ABIArgInfo::getExtend(/*Ty*/);
+  return ABIArgInfo::getExtend(Ty);
 }
 
 namespace {
